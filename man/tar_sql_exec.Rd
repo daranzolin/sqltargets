@@ -2,7 +2,7 @@
 % Please edit documentation in R/tar_sql_raw.R
 \name{tar_sql_exec}
 \alias{tar_sql_exec}
-\title{Render an R Markdown report inside a `tar_sql()` target.}
+\title{Execute a SQL query.}
 \usage{
 tar_sql_exec(args, deps)
 }

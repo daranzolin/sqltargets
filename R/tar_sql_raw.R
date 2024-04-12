@@ -109,7 +109,7 @@ tar_sql_command <- function(
   as.expression(as.call(expr))
 }
 
-#' @title Render an R Markdown report inside a `tar_sql()` target.
+#' @title Execute a SQL query.
 #' @description Internal function needed for `tar_sql()`.
 #'   Users should not invoke it directly.
 #' @export
