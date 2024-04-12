@@ -81,7 +81,7 @@ query.sql
 
 ```sql
 -- !preview conn=DBI::dbConnect(RSQLite::SQLite())
--- tar_load(sql_params)
+-- tar_load(query_params)
 select id
 from table
 where age > {age_threshold}
@@ -93,8 +93,8 @@ tar_script({
   library(tarchetypes)
   library(sqltargets)
   list(
-    tar_target(sql_params, list(age_threshold = 30)),
-    tar_sql(query, path = "query.sql")
+    tar_target(query_params, list(age_threshold = 30)),
+    tar_sql(query, path = "query.sql", query_params = query_params)
     )
   }, ask = FALSE)
 ```
