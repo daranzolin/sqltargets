@@ -34,8 +34,6 @@ tar_dir({  #
 # Unparameterized SQL query:
   lines <- c(
     "-- !preview conn=DBI::dbConnect(RSQLite::SQLite())",
-    "-- targets::tar_load(data1)",
-    "-- targets::tar_load(data2)",
     "select 1 AS my_col",
     ""
   )
@@ -54,7 +52,8 @@ tar_dir({  #
 ## Specifying dependencies
 
 Use `tar_load` or `targets::tar_load` within a SQL comment to indicate
-query dependencies. Check the dependencies of any query
+query dependencies. Check the dependencies of any query with
+`tar_sql_deps`.
 
 ``` r
 lines <- c(
@@ -75,18 +74,26 @@ lines <- c(
 Pass parameters (presumably from another object in your targets project)
 from a named list with ‘glue’ syntax: `{param}`.
 
-``` r
-sql_params <- list(age_threshold = 30)
-lines <- c(
-   "-- !preview conn=DBI::dbConnect(RSQLite::SQLite())",
-   "-- tar_load(sql_params)"
-   "select id",
-   "from table",
-   "where age > {age_threshold}",
-   ""
- )
+query.sql
 
-tar_sql(query, "path_to_query", query_params = sql_params)
+``` sql
+-- !preview conn=DBI::dbConnect(RSQLite::SQLite())
+-- tar_load(sql_params)
+select id
+from table
+where age > {age_threshold}
+```
+
+``` r
+tar_script({
+  library(targets)
+  library(tarchetypes)
+  library(sqltargets)
+  list(
+    tar_target(sql_params, list(age_threshold = 30)),
+    tar_sql(query, path = "query.sql")
+    )
+  }, ask = FALSE)
 ```
 
 ## Code of Conduct
