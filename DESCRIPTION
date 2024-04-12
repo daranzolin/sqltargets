@@ -1,0 +1,25 @@
+Package: sqltargets
+Type: Package
+Title: Targets extension for SQL queries
+Version: 0.0.1
+Authors@R: c(
+      person("David", "Ranzolin", email = "daranzolin@gmail.com", role=c("aut", "cre", "ctb"))
+      )
+Maintainer: David Ranzolin <daranzolin@gmail.com>
+Description: Provides an extension for SQL queries within
+    targets pipelines.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    cli,
+    DBI,
+    glue,
+    purrr,
+    readr,
+    stringr,
+    tarchetypes,
+    targets
+URL: https://github.com/daranzolin/sqltargets
+BugReports: https://github.com/daranzolin/sqltargets/issues
+RoxygenNote: 7.2.1
