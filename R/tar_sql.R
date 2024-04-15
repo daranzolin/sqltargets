@@ -72,8 +72,6 @@ tar_sql <- function(name,
     tidy_eval = tidy_eval
   )
 
-  envir <- targets::tar_option_get("envir")
-
   tar_sql_raw(
     name = name,
     path = path,
