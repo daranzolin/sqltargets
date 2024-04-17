@@ -68,7 +68,7 @@ tar_sql <- function(name,
   name <- targets::tar_deparse_language(substitute(name))
   query_params <- targets::tar_tidy_eval(
     expr = substitute(query_params),
-    envir = tar_option_get("envir"),
+    envir = targets::tar_option_get("envir"),
     tidy_eval = tidy_eval
   )
 

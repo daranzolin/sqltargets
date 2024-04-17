@@ -19,7 +19,8 @@ Imports:
     readr,
     stringr,
     tarchetypes,
-    targets
+    targets,
+    withr
 URL: https://github.com/daranzolin/sqltargets
 BugReports: https://github.com/daranzolin/sqltargets/issues
 RoxygenNote: 7.2.1
