@@ -47,6 +47,7 @@ tar_sql_raw <- function(
     name,
     path = ".",
     query_params = query_params,
+    format = format,
     error = targets::tar_option_get("error"),
     memory = targets::tar_option_get("memory"),
     garbage_collection = targets::tar_option_get("garbage_collection"),
@@ -71,7 +72,7 @@ tar_sql_raw <- function(
   targets::tar_target_raw(
     name = name,
     command = command,
-    format = targets::tar_option_get("format"),
+    format = format,
     repository = "local",
     error = error,
     memory = memory,
