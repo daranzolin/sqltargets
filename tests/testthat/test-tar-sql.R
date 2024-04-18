@@ -25,7 +25,6 @@ targets::tar_test("tar_sql() works", {
   progress <- progress[progress$progress != "skipped", ]
   expect_equal(nrow(progress), 0L)
   targets::tar_script({
-    library(tarchetypes)
     list(
       targets::tar_target(data, iris),
       tar_sql(report, path = "query.sql")
