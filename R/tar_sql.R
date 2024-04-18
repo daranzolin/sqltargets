@@ -17,6 +17,8 @@
 #'     2. Sets `format = "file"` (see `tar_target()`) so `targets`
 #'       watches the files at the returned paths and reruns the query
 #'       if those files change.
+#'     3. Creates another upstream target to watch the query file for changes
+#'        '*_query_file'.
 #' @return A data frame
 #' @inheritParams targets::tar_target
 #' @inheritParams tar_sql_raw

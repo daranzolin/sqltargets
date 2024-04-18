@@ -8,6 +8,7 @@ tar_sql_raw(
   name,
   path = ".",
   query_params = query_params,
+  format = format,
   error = targets::tar_option_get("error"),
   memory = targets::tar_option_get("memory"),
   garbage_collection = targets::tar_option_get("garbage_collection"),
@@ -15,7 +16,8 @@ tar_sql_raw(
   priority = targets::tar_option_get("priority"),
   resources = targets::tar_option_get("resources"),
   retrieval = targets::tar_option_get("retrieval"),
-  cue = targets::tar_option_get("cue")
+  cue = targets::tar_option_get("cue"),
+  deps = deps
 )
 }
 \arguments{
@@ -39,6 +41,12 @@ to locally recreate the target's initial RNG state.}
 Defaults to the working directory of the `targets` pipeline.}
 
 \item{query_params}{A named list of parameters for parameterized queries.}
+
+\item{format}{Optional storage format for the target's return value.
+With the exception of \code{format = "file"}, each target
+gets a file in \verb{_targets/objects}, and each format is a different
+way to save and load this file. See the "Storage formats" section
+for a detailed list of possible data storage formats.}
 
 \item{error}{Character of length 1, what to do if the target
 stops and throws an error. Options:
@@ -108,6 +116,10 @@ explicitly from another language.
 
 \item{cue}{An optional object from \code{tar_cue()} to customize the
 rules that decide whether the target is up to date.}
+
+\item{deps}{Optional character vector of the adjacent upstream
+dependencies of the target, including targets and global objects.
+If \code{NULL}, dependencies are resolved automatically as usual.}
 }
 \value{
 A data frame

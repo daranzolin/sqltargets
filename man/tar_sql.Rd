@@ -8,6 +8,7 @@ tar_sql(
   name,
   path,
   query_params = list(),
+  format = targets::tar_option_get("format"),
   tidy_eval = targets::tar_option_get("tidy_eval"),
   repository = targets::tar_option_get("repository"),
   iteration = targets::tar_option_get("iteration"),
@@ -47,6 +48,12 @@ Defaults to the working directory of the `targets` pipeline.}
 that are passed via `glue::glue_sql()`. The list is quoted
 (not evaluated until the target runs)
 so that upstream targets can serve as parameter values.}
+
+\item{format}{Optional storage format for the target's return value.
+With the exception of \code{format = "file"}, each target
+gets a file in \verb{_targets/objects}, and each format is a different
+way to save and load this file. See the "Storage formats" section
+for a detailed list of possible data storage formats.}
 
 \item{tidy_eval}{Logical, whether to enable tidy evaluation
 when interpreting \code{command} and \code{pattern}. If \code{TRUE}, you can use the
@@ -214,6 +221,8 @@ Shorthand to include a SQL query in a
     2. Sets `format = "file"` (see `tar_target()`) so `targets`
       watches the files at the returned paths and reruns the query
       if those files change.
+    3. Creates another upstream target to watch the query file for changes
+       '*_query_file'.
 }
 \examples{
 targets::tar_dir({  # tar_dir() runs code from a temporary directory.
