@@ -222,7 +222,7 @@ Shorthand to include a SQL query in a
       watches the files at the returned paths and reruns the query
       if those files change.
     3. Creates another upstream target to watch the query file for changes
-       '*_query_file'.
+       '<target name> `getOption("sqltargets.target_file_suffix")`'.
 }
 \examples{
 targets::tar_dir({  # tar_dir() runs code from a temporary directory.

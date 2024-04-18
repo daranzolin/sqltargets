@@ -17,6 +17,8 @@
 #'     2. Sets `format = "file"` (see `tar_target()`) so `targets`
 #'       watches the files at the returned paths and reruns the query
 #'       if those files change.
+#'     3. Creates another upstream target to watch the query file for changes
+#'        '<target name> `getOption("sqltargets.target_file_suffix")`'.
 #' @return A data frame
 #' @inheritParams targets::tar_target_raw
 #' @param path Character of length 1 to the single `*.sql` source file to be executed.
