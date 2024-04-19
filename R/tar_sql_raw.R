@@ -18,7 +18,7 @@
 #'       watches the files at the returned paths and reruns the query
 #'       if those files change.
 #'     3. Creates another upstream target to watch the query file for changes
-#'        '<target name> `getOption("sqltargets.target_file_suffix")`'.
+#'        '<target name> `sqltargets_option_get("sqltargets.target_file_suffix")`'.
 #' @return A data frame
 #' @inheritParams targets::tar_target_raw
 #' @param path Character of length 1 to the single `*.sql` source file to be executed.
@@ -68,7 +68,7 @@ tar_sql_raw <- function(
   targets::tar_assert_not_expr(query_params)
 
   file_command <- tar_sql_file_command(path = path)
-  file_dep <- paste0(name, "_query_file")
+  file_dep <- paste0(name, sqltargets_option_get("sqltargets.target_file_suffix"))
 
   query_command <- tar_sql_command(
     path = path,
