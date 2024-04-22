@@ -16,7 +16,7 @@ call_list <- function(args) {
 as_symbols <- function(x) {
   lapply(x, as.symbol)
 }
-call_ns <- function(pkg, fun) {
+int_call_ns <- function(pkg, fun) {
   call_function("::", as_symbols(c(pkg, fun)))
 }
 

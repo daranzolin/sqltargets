@@ -121,7 +121,7 @@ tar_sql_file_command <- function(path) {
     list(path = path),
     env = list(path = path)
   )
-  fun <- rlang::call_ns("sqltargets", "tar_sql_file")
+  fun <- int_call_ns("sqltargets", "tar_sql_file")
   expr <- list(
     fun,
     args
@@ -146,7 +146,7 @@ tar_sql_command <- function(
   )
   deps <- c(sort(unique(sql_deps(path))), file_dep)
   deps <- call_list(as_symbols(deps))
-  fun <- call_ns("sqltargets", "tar_sql_exec")
+  fun <- int_call_ns("sqltargets", "tar_sql_exec")
   expr <- list(
     fun,
     args = args,
