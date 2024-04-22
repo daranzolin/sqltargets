@@ -46,7 +46,7 @@ targets::tar_test("tar_sql() for parameterized queries", {
   targets::tar_script({
     library(sqltargets)
     list(
-      tar_target(query_params, list(val = 3, col_name = "column1")),
+      targets::tar_target(query_params, list(val = 3, col_name = "column1")),
       tar_sql(
         report,
         path = "query.sql",

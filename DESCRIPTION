@@ -19,6 +19,7 @@ Imports:
     glue,
     purrr,
     readr,
+    rlang,
     RSQLite,
     stringr,
     tarchetypes,
