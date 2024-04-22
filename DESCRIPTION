@@ -17,6 +17,7 @@ Imports:
     glue,
     purrr,
     readr,
+    RSQLite,
     stringr,
     tarchetypes,
     targets,
