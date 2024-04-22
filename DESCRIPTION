@@ -3,11 +3,11 @@ Type: Package
 Title: Targets extension for SQL queries
 Version: 0.0.1
 Authors@R: c(
-      person("David", "Ranzolin", email = "daranzolin@gmail.com", role=c("aut", "cre", "ctb"))
+      person("David", "Ranzolin", email = "daranzolin@gmail.com", role=c("aut", "cre", "ctb", "cph"))
       )
 Maintainer: David Ranzolin <daranzolin@gmail.com>
-Description: Provides an extension for SQL queries within
-    targets pipelines.
+Description: Provides an extension for SQL queries as separate file 
+    within targets pipelines.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

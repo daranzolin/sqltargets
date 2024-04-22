@@ -1,4 +1,3 @@
-# From https://github.com/njtierney/geotargets/blob/8ad4e66b2e2f2373a6237e5b4d8092a7711e6da3/R/utils.R#L8-L15
 check_pkg_installed <- function(pkg, call = rlang::caller_env()) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
     cli::cli_abort(
@@ -8,7 +7,6 @@ check_pkg_installed <- function(pkg, call = rlang::caller_env()) {
   }
 }
 
-# From https://github.com/ropensci/tarchetypes/blob/9de10e666d114c14d48fc8af0311b7588d16585d/R/utils_language
 call_list <- function(args) {
   call_function("list", args)
 }

@@ -18,7 +18,13 @@ project.](https://github.com/ropensci/targets)
 
 ## Installation
 
-You can install the development version of sqltargets like so:
+You can install sqltargets from CRAN with:
+
+``` r
+install.packages("sqltargets")
+```
+
+You can install the development version of sqltargets with:
 
 ``` r
 remotes::install_github("daranzolin/sqltargets)
