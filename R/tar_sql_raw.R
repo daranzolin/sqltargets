@@ -92,7 +92,7 @@ tar_sql_raw <- function(
     cue = cue
   )
 
-  # downstream target
+  # Downstream target
   deps <- sort(unique(sql_deps(path)))
   target_output <- targets::tar_target_raw(
     name = name,
@@ -161,7 +161,6 @@ tar_sql_command <- function(
 #' @export
 #' @keywords internal
 #' @return a data frame.
-#' @param path Path to the SQL query.
 #' @param args A named list of arguments to `glue::glue_sql()`.
 #' @param deps An unnamed list of target dependencies of the R Markdown
 #'   report, automatically created by `tar_sql_deps()`.
@@ -177,8 +176,8 @@ tar_sql_exec <- function(args, deps) {
 #'   Users should not invoke it directly.
 #' @export
 #' @keywords internal
-#' @return a relative file path.
-#' @param path Path to the SQL query.
+#' @return A relative file path.
+#' @param args Passed to `fs::path_rel()`.
 tar_sql_file <- function(args) {
   gc()
   do.call(what = fs::path_rel, args)

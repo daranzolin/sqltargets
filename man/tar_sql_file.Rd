@@ -7,10 +7,10 @@
 tar_sql_file(args)
 }
 \arguments{
-\item{path}{Path to the SQL query.}
+\item{args}{Passed to `fs::path_rel()`.}
 }
 \value{
-a relative file path.
+A relative file path.
 }
 \description{
 Internal function needed for `tar_sql()`.

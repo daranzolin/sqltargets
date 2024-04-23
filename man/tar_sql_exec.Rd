@@ -11,8 +11,6 @@ tar_sql_exec(args, deps)
 
 \item{deps}{An unnamed list of target dependencies of the R Markdown
 report, automatically created by `tar_sql_deps()`.}
-
-\item{path}{Path to the SQL query.}
 }
 \value{
 a data frame.
