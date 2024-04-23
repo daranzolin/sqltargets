@@ -1,13 +1,13 @@
 Package: sqltargets
 Type: Package
-Title: Targets Extension for SQL Queries
+Title: Targets Extension for 'SQL' Queries
 Version: 0.0.1
 Authors@R: c(
       person("David", "Ranzolin", email = "daranzolin@gmail.com", role=c("aut", "cre", "cph"))
       )
 Maintainer: David Ranzolin <daranzolin@gmail.com>
-Description: Provides an extension for SQL queries as separate file 
-    within targets pipelines. The shorthand creates two 'targets',
+Description: Provides an extension for 'SQL' queries as separate file 
+    within targets pipelines. The shorthand creates two targets,
     the query file and the query result.
 License: MIT + file LICENSE
 Encoding: UTF-8

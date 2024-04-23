@@ -14,6 +14,9 @@ sqltargets_option_set(option_name, option_value)
 
 \item{option_value}{Value to assign to option `x`.}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 Get or Set sqltargets Options
 }
