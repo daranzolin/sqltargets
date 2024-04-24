@@ -9,6 +9,12 @@
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![R-CMD-check](https://github.com/daranzolin/sqltargets/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/daranzolin/sqltargets/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/sqltargets)](https://CRAN.R-project.org/package=sqltargets)
+[![](https://cranlogs.r-pkg.org/badges/sqltargets)](https://cran.r-project.org/package=sqltargets)
+[![R
+Targetopia](https://img.shields.io/badge/R_Targetopia-member-blue?style=flat&labelColor=gray)](https://wlandau.github.io/targetopia/)
+
 <!-- badges: end -->
 
 SQL queries (as separate files) occupy an awkward spot within R
