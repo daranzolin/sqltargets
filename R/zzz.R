@@ -6,4 +6,5 @@ sqltargets_env <- function() {
 
 .onAttach <- function(lib, pkg) {
   sqltargets.env$sqltargets.target_file_suffix <- "_query_file"
+  sqltargets.env$sqltargets.glue_sql_delimiters <- "{}"
 }
