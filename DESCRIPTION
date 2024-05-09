@@ -1,13 +1,13 @@
 Package: sqltargets
 Type: Package
-Title: Targets Extension for 'SQL' Queries
+Title: 'Targets' Extension for 'SQL' Queries
 Version: 0.0.1
 Authors@R: c(
       person("David", "Ranzolin", email = "daranzolin@gmail.com", role=c("aut", "cre", "cph"))
       )
 Maintainer: David Ranzolin <daranzolin@gmail.com>
 Description: Provides an extension for 'SQL' queries as separate file 
-    within targets pipelines. The shorthand creates two targets,
+    within 'targets' pipelines. The shorthand creates two targets,
     the query file and the query result.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -18,9 +18,7 @@ Imports:
     fs,
     glue,
     purrr,
-    readr,
     rlang,
-    RSQLite,
     stringr,
     tarchetypes,
     targets,
@@ -29,5 +27,6 @@ URL: https://github.com/daranzolin/sqltargets
 BugReports: https://github.com/daranzolin/sqltargets/issues
 RoxygenNote: 7.2.1
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    RSQLite (>= 2.2.0)
 Config/testthat/edition: 3

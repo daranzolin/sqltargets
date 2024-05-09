@@ -1,6 +1,6 @@
 source_sql_to_dataframe <- function(path, query_params = NULL) {
 
-  lines <- readr::read_lines(path)
+  lines <- readLines(path)
   connection_string <- stringr::str_extract(lines[1], "(?<=\\=).*")
   connection_call <- paste0("con <- ", connection_string)
   eval(parse(text = connection_call))
