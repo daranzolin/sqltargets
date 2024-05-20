@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-SQL queries (as separate files) occupy an awkward spot within R pipelines. The goal of sqltargets is to offer a shorthand `tar_sql` to reference and execute queries within [a targets project.](https://github.com/ropensci/targets)  
+sqltargets makes it easy to integrate SQL files within your [targets workflows.](https://github.com/ropensci/targets) The shorthand tar_sql() creates two targets: (1) the ‘upstream’ SQL file; and (2) the ‘downstream’ result of the query. Dependencies can be specified by calling tar_load() within SQL comments. Parameters can be specified using glue::glue_sql() bracket notation (‘{}’) (or configured using `sqltargets.glue_sql_delimiters` options (dev only)).
 
 ## Installation
 
