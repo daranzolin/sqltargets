@@ -13,6 +13,8 @@ source_sql_to_dataframe <- function(path, query_params = NULL) {
   query <- paste(query, collapse = " ")
   query <- glue::glue_sql(query, .con = con, .open = open, .close = close, .envir = query_params)
   out <- DBI::dbGetQuery(con, query)
+  msg <- glue::glue("{basename(path)} executed:\n Rows: {nrow(out)}\n Columns: {ncol(out)}")
+  cli::cli_alert_success(msg)
   return(out)
 
 }
