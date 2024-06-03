@@ -18,6 +18,7 @@ Imports:
     fs,
     glue,
     purrr,
+    readr,
     rlang,
     stringr,
     tarchetypes,
