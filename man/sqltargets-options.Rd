@@ -24,5 +24,6 @@ Get or Set sqltargets Options
 ## Available Options
 
  - `"sqltargets.target_file_suffix"` - character. Length 1. Suffix appended to target name for SQL file dependency.
- - `"sqltargets.glue_sql_delimiters"` - character. Length 1. Two characters. The opening and closing delimiters passed to `glue::glue_sql()`.
+ - `"sqltargets.glue_sql_opening_delimiter"` - character. Length 1. Two characters. The opening delimiter passed to `glue::glue_sql()`.
+ - `"sqltargets.glue_sql_closing_delimiter"` - character. Length 1. Two characters. The closing delimiter passed to `glue::glue_sql()`.
 }
