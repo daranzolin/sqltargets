@@ -16,7 +16,7 @@ targets::tar_test("tar_sql() works", {
   suppressMessages(targets::tar_make(callr_function = NULL))
   progress <- targets::tar_progress()
   progress <- progress[progress$progress != "skipped", ]
-  expect_equal(sort(progress$name), sort(c("data", "report", "report_query_file")))
+  expect_equal(sort(progress$name), sort(c("data", "report", "query.sql")))
   out <- targets::tar_read(report)
   expect_equal(out, data.frame(my_col = 1))
   # Should not rerun the query.
@@ -32,7 +32,7 @@ targets::tar_test("tar_sql() works", {
   })
   # Should rerun the query
   suppressMessages(targets::tar_make(callr_function = NULL))
-  expect_equal(sort(targets::tar_progress()$name), sort(c("data", "report", "report_query_file")))
+  expect_equal(sort(targets::tar_progress()$name), sort(c("data", "report", "query.sql")))
 })
 
 targets::tar_test("tar_sql() for parameterized queries", {

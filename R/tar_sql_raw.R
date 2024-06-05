@@ -68,7 +68,7 @@ tar_sql_raw <- function(
   targets::tar_assert_not_expr(query_params)
 
   file_command <- tar_sql_file_command(path = path)
-  file_dep <- paste0(name, sqltargets_option_get("sqltargets.target_file_suffix"))
+  file_dep <- basename(path)
 
   query_command <- tar_sql_command(
     path = path,
