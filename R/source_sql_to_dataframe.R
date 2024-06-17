@@ -2,7 +2,7 @@ source_sql_to_dataframe <- function(path, query_params = NULL) {
 
   connection_string <- stringr::str_extract(readr::read_lines(path, n_max = 1), "(?<=\\=).*")
   connection_call <- paste0("con <- ", connection_string)
-  eval(parse(text = connection_call))
+  rlang::eval_bare(rlang::parse_expr(connection_call))
   on.exit(DBI::dbDisconnect(con))
   open <- sqltargets_option_get("sqltargets.glue_sql_opening_delimiter")
   close <- sqltargets_option_get("sqltargets.glue_sql_closing_delimiter")
