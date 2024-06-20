@@ -24,7 +24,7 @@ the ‘downstream’ result of the query. Dependencies can be specified by
 calling `tar_load()` within SQL comments. Parameters can be specified
 using glue::glue_sql() bracket notation (‘{}’) (or configured using the
 `sqltargets.glue_sql_opening_delimiter` and
-`sqltargets.glue_sql_closing_delimiter` options (dev only)).
+`sqltargets.glue_sql_closing_delimiter` options.
 
 ## Installation
 
