@@ -7,7 +7,7 @@ test_that("sqltargets_option_set() works", {
   expect_equal(sqltargets_option_get("sqltargets.glue_sql_closing_delimiter"), ">>")
 })
 
-test_that("different delimiters work", {
+targets::tar_test("different delimiters work", {
   lines <- c(
     "-- !preview conn=DBI::dbConnect(RSQLite::SQLite())",
     "-- tar_load(query_params)",
@@ -26,7 +26,7 @@ test_that("different delimiters work", {
         query_params = query_params
       )
     )
-  })
+  }, ask = FALSE)
   suppressMessages(targets::tar_make(callr_function = NULL))
   out <- targets::tar_read(report)
   expect_equal(out, data.frame(column1 = 3))
