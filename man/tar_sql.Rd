@@ -7,7 +7,7 @@
 tar_sql(
   name,
   path,
-  query_params = list(),
+  params = list(),
   format = targets::tar_option_get("format"),
   tidy_eval = targets::tar_option_get("tidy_eval"),
   repository = targets::tar_option_get("repository"),
@@ -43,9 +43,9 @@ to locally recreate the target's initial RNG state.}
 \item{path}{Character of length 1 to the single `*.sql` source file to be executed.
 Defaults to the working directory of the `targets` pipeline.}
 
-\item{query_params}{Code, can be `NULL`.
-`query_params` evaluates to a named list of parameters
-that are passed via `glue::glue_sql()`. The list is quoted
+\item{params}{Code, can be `NULL`.
+`params` evaluates to a named list of parameters
+that are passed to `jinjar::render()`. The list is quoted
 (not evaluated until the target runs)
 so that upstream targets can serve as parameter values.}
 

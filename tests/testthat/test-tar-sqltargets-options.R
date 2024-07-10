@@ -1,29 +1,29 @@
 test_that("sqltargets_option_set() works", {
   sqltargets_option_set("sqltargets.target_file_suffix", "_x_query")
-  sqltargets_option_set("sqltargets.glue_sql_opening_delimiter", "<<")
-  sqltargets_option_set("sqltargets.glue_sql_closing_delimiter", ">>")
+  sqltargets_option_set("sqltargets.jinja_block_open", "<<")
+  sqltargets_option_set("sqltargets.jinja_block_close", ">>")
   expect_equal(sqltargets_option_get("sqltargets.target_file_suffix"), "_x_query")
-  expect_equal(sqltargets_option_get("sqltargets.glue_sql_opening_delimiter"), "<<")
-  expect_equal(sqltargets_option_get("sqltargets.glue_sql_closing_delimiter"), ">>")
+  expect_equal(sqltargets_option_get("sqltargets.jinja_block_open"), "<<")
+  expect_equal(sqltargets_option_get("sqltargets.jinja_block_close"), ">>")
 })
 
 targets::tar_test("different delimiters work", {
   lines <- c(
     "-- !preview conn=DBI::dbConnect(RSQLite::SQLite())",
-    "-- tar_load(query_params)",
-    "select @val@ as @col_name@",
+    "-- tar_load(params)",
+    "select [[params.val]] as [[params.col_name]]",
     ""
   )
   writeLines(lines, "query.sql")
   targets::tar_script({
-    sqltargets_option_set("sqltargets.glue_sql_opening_delimiter", "@")
-    sqltargets_option_set("sqltargets.glue_sql_closing_delimiter", "@")
+    sqltargets_option_set("sqltargets.jinja_variable_open", "[[")
+    sqltargets_option_set("sqltargets.jinja_variable_close", "]]")
     list(
-      targets::tar_target(query_params, list(val = 3, col_name = "column1")),
+      targets::tar_target(params, list(val = 3, col_name = "column1")),
       tar_sql(
         report,
         path = "query.sql",
-        query_params = query_params
+        params = params
       )
     )
   }, ask = FALSE)

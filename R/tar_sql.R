@@ -22,9 +22,9 @@
 #' @return A data frame
 #' @inheritParams targets::tar_target
 #' @inheritParams tar_sql_raw
-#' @param query_params Code, can be `NULL`.
-#'   `query_params` evaluates to a named list of parameters
-#'   that are passed via `glue::glue_sql()`. The list is quoted
+#' @param params Code, can be `NULL`.
+#'   `params` evaluates to a named list of parameters
+#'   that are passed to `jinjar::render()`. The list is quoted
 #'   (not evaluated until the target runs)
 #'   so that upstream targets can serve as parameter values.
 #' @examples
@@ -50,7 +50,7 @@
 #' })
 tar_sql <- function(name,
                     path,
-                    query_params = list(),
+                    params = list(),
                     format = targets::tar_option_get("format"),
                     tidy_eval = targets::tar_option_get("tidy_eval"),
                     repository = targets::tar_option_get("repository"),
@@ -69,8 +69,8 @@ tar_sql <- function(name,
   check_pkg_installed("glue")
 
   name <- targets::tar_deparse_language(substitute(name))
-  query_params <- targets::tar_tidy_eval(
-    expr = substitute(query_params),
+  params <- targets::tar_tidy_eval(
+    expr = substitute(params),
     envir = targets::tar_option_get("envir"),
     tidy_eval = tidy_eval
   )
@@ -78,7 +78,7 @@ tar_sql <- function(name,
   tar_sql_raw(
     name = name,
     path = path,
-    query_params = query_params,
+    params = params,
     format = format,
     error = error,
     memory = memory,

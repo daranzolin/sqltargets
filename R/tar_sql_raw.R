@@ -23,7 +23,11 @@
 #' @inheritParams targets::tar_target_raw
 #' @param path Character of length 1 to the single `*.sql` source file to be executed.
 #'   Defaults to the working directory of the `targets` pipeline.
-#' @param query_params A named list of parameters for parameterized queries.
+#' @param params Code, can be `NULL`.
+#'   `params` evaluates to a named list of parameters
+#'   that are passed to `jinjar::render()`. The list is quoted
+#'   (not evaluated until the target runs)
+#'   so that upstream targets can serve as parameter values.
 #' @examples
 #' targets::tar_dir({  # tar_dir() runs code from a temporary directory.
 #'   # Unparameterized SQL query:
@@ -48,7 +52,7 @@
 tar_sql_raw <- function(
     name,
     path = ".",
-    query_params = query_params,
+    params = params,
     format = format,
     error = targets::tar_option_get("error"),
     memory = targets::tar_option_get("memory"),
@@ -64,15 +68,15 @@ tar_sql_raw <- function(
   targets::tar_assert_chr(name)
   targets::tar_assert_nzchar(name)
   targets::tar_assert_file(path)
-  targets::tar_assert_lang(query_params)
-  targets::tar_assert_not_expr(query_params)
+  targets::tar_assert_lang(params)
+  targets::tar_assert_not_expr(params)
 
   file_command <- tar_sql_file_command(path = path)
   file_dep <- basename(path)
 
   query_command <- tar_sql_command(
     path = path,
-    query_params = query_params,
+    params = params,
     file_dep = file_dep
   )
 
@@ -131,17 +135,17 @@ tar_sql_file_command <- function(path) {
 
 tar_sql_command <- function(
     path,
-    query_params,
+    params,
     file_dep
 ) {
   args <- substitute(
     list(
       path = path,
-      query_params = query_params
+      params = params
     ),
     env = list(
       path = path,
-      query_params = query_params
+      params = params
     )
   )
   deps <- c(sort(unique(sql_deps(path))), file_dep)
