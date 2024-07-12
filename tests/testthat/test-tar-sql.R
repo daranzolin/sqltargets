@@ -64,10 +64,10 @@ targets::tar_test("tar_sql() for Jinja for loop", {
     "-- !preview conn=DBI::dbConnect(RSQLite::SQLite())",
     "-- tar_load(params)",
     "select",
-    "{% for payment_method in params.payment_methods -%}",
-    "0 as {{ payment_method }}_amount,",
-    "{% endfor -%}",
-    "1 as id",
+    "{% for payment_method in params.payment_methods %}",
+    "0 as {{ payment_method }}_amount",
+    "{% if not loop.is_last %},{% endif %}",
+    "{% endfor %}",
     ""
   )
   writeLines(lines, "query.sql")
@@ -86,6 +86,5 @@ targets::tar_test("tar_sql() for Jinja for loop", {
   out <- targets::tar_read(report)
   expect_equal(out, data.frame(bank_transfer_amount = 0,
                                credit_card_amount = 0,
-                               gift_card_amount = 0,
-                               id = 1))
+                               gift_card_amount = 0))
 })
