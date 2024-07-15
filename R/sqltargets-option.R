@@ -9,8 +9,12 @@
 #'
 #' ## Available Options
 #'
-#'  - `"sqltargets.glue_sql_opening_delimiter"` - character. Length 1. Two characters. The opening delimiter passed to `glue::glue_sql()`.
-#'  - `"sqltargets.glue_sql_closing_delimiter"` - character. Length 1. Two characters. The closing delimiter passed to `glue::glue_sql()`.
+#'  - `"sqltargets.jinja_block_open"` - character. Length 1. The opening delimiter passed to `jinjar::jinjar_config()`.
+#'  - `"sqltargets.jinja_block_close"` - character. Length 1. The closing delimiter passed to `jinjar::jinjar_config()`.
+#'  - `"sqltargets.jinja_variable_open"` - character. Length 1. The closing delimiter passed to `jinjar::jinjar_config()`.
+#'  - `"sqltargets.jinja_variable_close"` - character. Length 1. The closing delimiter passed to `jinjar::jinjar_config()`.
+#'  - `"sqltargets.jinja_comment_open"` - character. Length 1. The closing delimiter passed to `jinjar::jinjar_config()`.
+#'  - `"sqltargets.jinja_comment_close"` - character. Length 1. The closing delimiter passed to `jinjar::jinjar_config()`.
 #' @rdname sqltargets-options
 #' @export
 sqltargets_option_get <- function(option_name) {

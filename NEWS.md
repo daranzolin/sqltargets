@@ -1,3 +1,9 @@
+# sqltargets (dev)
+
+* Included 'jinjar' as a dependency, allowing jinja-like SQL queries
+* Breaking change: `query_params` argument in `tar_sql()` is now `params`.
+* Additional tests
+
 # sqltargets 0.1.0
 
 * Added two additional options for the opening and closing delimiters.
