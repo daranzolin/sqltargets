@@ -68,12 +68,15 @@ tar_sql <- function(name,
   check_pkg_installed("DBI")
   check_pkg_installed("glue")
 
+  params_nm <- deparse(substitute(params))
+
   name <- targets::tar_deparse_language(substitute(name))
   params <- targets::tar_tidy_eval(
     expr = substitute(params),
     envir = targets::tar_option_get("envir"),
     tidy_eval = tidy_eval
   )
+
 
   tar_sql_raw(
     name = name,
@@ -87,6 +90,7 @@ tar_sql <- function(name,
     priority = priority,
     resources = resources,
     retrieval = retrieval,
-    cue = cue
+    cue = cue,
+    params_nm = params_nm
   )
 }
