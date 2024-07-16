@@ -21,10 +21,9 @@ sqltargets makes it easy to integrate SQL files within your [targets
 workflows.](https://github.com/ropensci/targets) The shorthand
 `tar_sql()` creates two targets: (1) the ‘upstream’ SQL file; and (2)
 the ‘downstream’ result of the query. Dependencies can be specified by
-calling `tar_load()` within SQL comments. Parameters can be specified
-using glue::glue_sql() bracket notation (‘{}’) (or configured using the
-`sqltargets.glue_sql_opening_delimiter` and
-`sqltargets.glue_sql_closing_delimiter` options.
+calling `tar_load()` within SQL comments. Parameters and [‘Jinja’
+SQL](https://docs.getdbt.com/guides/using-jinja?step=3) can be
+customized within the query.
 
 ## Installation
 
@@ -85,35 +84,38 @@ lines <- c(
 #> [1] "data1" "data2"
 ```
 
-## Passing parameters
+## Parameters and Jinja
 
-Pass parameters (presumably from another object in your targets project)
-from a named list with ‘glue’ syntax: `{param}`.
+Generate parameters elsewhere and then use ‘Jinja’ and SQL together by
+passing a named list to the `params` argument in `tar_sql()`.
 
 `query.sql`
 
 ``` sql
--- !preview conn=DBI::dbConnect(RSQLite::SQLite())
--- tar_load(query_params)
-select id
-from table
-where age > {age_threshold}
+-- !preview conn=pkgx::connect_to_some_db()
+select
+order_id,
+{% for payment_method in params.payment_methods %}
+sum(case when payment_method = '{{payment_method}}' then amount end) as {{payment_method}}_amount
+{% if not loop.last %},{% endif %}
+{% endfor %}
+from payments
+group by 1
 ```
+
+`_targets.R`
 
 ``` r
-tar_script({
-  library(targets)
-  library(sqltargets)
-  list(
-    tar_target(query_params, list(age_threshold = 30)),
-    tar_sql(report, path = "query.sql", query_params = query_params)
-    )
-  }, ask = FALSE)
+library(targets)
+library(sqltargets)
 
-tar_visnetwork()
+list(
+  tar_target(payment_methods, list(payment_methods = c("bank_transfer", "credit_card", "gift_card"))),
+  tar_sql(report, "query.sql", params = payment_methods)
+)
 ```
 
-![](inst/tar_visnetwork.png)
+![](inst/tar_glimpse.png)
 
 ## Code of Conduct
 

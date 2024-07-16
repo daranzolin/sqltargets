@@ -1,4 +1,4 @@
-# sqltargets (dev)
+# sqltargets 0.2.0
 
 * Included 'jinjar' as a dependency, allowing jinja-like SQL queries
 * Breaking change: `query_params` argument in `tar_sql()` is now `params`.
