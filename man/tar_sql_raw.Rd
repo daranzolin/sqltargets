@@ -17,7 +17,7 @@ tar_sql_raw(
   resources = targets::tar_option_get("resources"),
   retrieval = targets::tar_option_get("retrieval"),
   cue = targets::tar_option_get("cue"),
-  deps = deps
+  params_nm = NULL
 )
 }
 \arguments{
@@ -121,9 +121,7 @@ explicitly from another language.
 \item{cue}{An optional object from \code{tar_cue()} to customize the
 rules that decide whether the target is up to date.}
 
-\item{deps}{Optional character vector of the adjacent upstream
-dependencies of the target, including targets and global objects.
-If \code{NULL}, dependencies are resolved automatically as usual.}
+\item{params_nm}{Character of length 1, name of object passed to `params`.}
 }
 \value{
 A data frame

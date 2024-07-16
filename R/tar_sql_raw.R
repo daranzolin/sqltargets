@@ -28,6 +28,7 @@
 #'   that are passed to `jinjar::render()`. The list is quoted
 #'   (not evaluated until the target runs)
 #'   so that upstream targets can serve as parameter values.
+#' @param params_nm Character of length 1, name of object passed to `params`.
 #' @examples
 #' targets::tar_dir({  # tar_dir() runs code from a temporary directory.
 #'   # Unparameterized SQL query:
@@ -62,7 +63,7 @@ tar_sql_raw <- function(
     resources = targets::tar_option_get("resources"),
     retrieval = targets::tar_option_get("retrieval"),
     cue = targets::tar_option_get("cue"),
-    deps = deps
+    params_nm = NULL
 ) {
   targets::tar_assert_scalar(name)
   targets::tar_assert_chr(name)
@@ -111,7 +112,7 @@ tar_sql_raw <- function(
     resources = resources,
     retrieval = retrieval,
     cue = cue,
-    deps = c(deps, file_dep)
+    deps = c(deps, params_nm, file_dep)
   )
 
   tar_sql_target_list(
