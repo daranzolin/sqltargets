@@ -1,8 +1,6 @@
 test_that("sqltargets_option_set() works", {
-  sqltargets_option_set("sqltargets.target_file_suffix", "_x_query")
   sqltargets_option_set("sqltargets.jinja_block_open", "<<")
   sqltargets_option_set("sqltargets.jinja_block_close", ">>")
-  expect_equal(sqltargets_option_get("sqltargets.target_file_suffix"), "_x_query")
   expect_equal(sqltargets_option_get("sqltargets.jinja_block_open"), "<<")
   expect_equal(sqltargets_option_get("sqltargets.jinja_block_close"), ">>")
 })
@@ -16,6 +14,7 @@ targets::tar_test("different delimiters work", {
   )
   writeLines(lines, "query.sql")
   targets::tar_script({
+    sqltargets_option_set("sqltargets.template_engine", "jinjar")
     sqltargets_option_set("sqltargets.jinja_variable_open", "[[")
     sqltargets_option_set("sqltargets.jinja_variable_close", "]]")
     list(

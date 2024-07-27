@@ -6,6 +6,9 @@ sqltargets_env <- function() {
 
 .onAttach <- function(lib, pkg) {
   jinjar_defaults <- jinjar::default_config()
+  sqltargets.env$sqltargets.template_engine <- "glue"
+  sqltargets.env$sqltargets.glue_sql_opening_delimiter <- "{"
+  sqltargets.env$sqltargets.glue_sql_closing_delimiter <- "}"
   sqltargets.env$sqltargets.jinja_block_open <- jinjar_defaults$block_open
   sqltargets.env$sqltargets.jinja_block_close <- jinjar_defaults$block_close
   sqltargets.env$sqltargets.jinja_comment_open <- jinjar_defaults$comment_open

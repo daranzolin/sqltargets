@@ -40,38 +40,14 @@ You can install the development version of sqltargets with:
 remotes::install_github("daranzolin/sqltargets)
 ```
 
-## Example
-
-``` r
-library(targets)
-#> Warning: package 'targets' was built under R version 4.2.2
-library(sqltargets)
-
-tar_dir({  # 
-# Unparameterized SQL query:
-  lines <- c(
-    "-- !preview conn=DBI::dbConnect(RSQLite::SQLite())",
-    "select 1 AS my_col",
-    ""
-  )
-  writeLines(lines, "query.sql")
-# Include the query in a pipeline as follows.
-  tar_script({
-    library(sqltargets)
-    list(
-      tar_sql(query, path = "query.sql")
-      )
-    }, ask = FALSE)
-  })
-```
-
-## Specifying dependencies
+## Dependencies
 
 Use `tar_load` or `targets::tar_load` within a SQL comment to indicate
 query dependencies. Check the dependencies of any query with
 `tar_sql_deps`.
 
 ``` r
+library(sqltargets)
 lines <- c(
    "-- !preview conn=DBI::dbConnect(RSQLite::SQLite())",
    "-- targets::tar_load(data1)",
@@ -85,35 +61,77 @@ lines <- c(
 #> [1] "data1" "data2"
 ```
 
-## Passing parameters
+## Parameters
 
-Pass parameters (presumably from another object in your targets project)
-from a named list with ‘glue’ syntax: `{param}`.
+You can pass parameters (presumably from another object in your targets
+project) to `tar_sql()` using one of two ‘template engines’:
+[glue](https://github.com/tidyverse/glue) or ‘Jinja’ (courtesy of [the
+‘jinjar’ package.)](https://github.com/davidchall/jinjar)
+
+Set the ‘template engine’ with
+`sqltargets_option_set("sqltargets.template_engine", "jinjar")`. (‘glue’
+is the default.)
+
+With glue:
 
 `query.sql`
 
 ``` sql
 -- !preview conn=DBI::dbConnect(RSQLite::SQLite())
--- tar_load(query_params)
+-- tar_load(params)
 select id
 from table
 where age > {age_threshold}
 ```
 
-``` r
-tar_script({
-  library(targets)
-  library(sqltargets)
-  list(
-    tar_target(query_params, list(age_threshold = 30)),
-    tar_sql(report, path = "query.sql", query_params = query_params)
-    )
-  }, ask = FALSE)
+`_targets.R`
 
-tar_visnetwork()
+``` r
+library(targets)
+library(sqltargets)
+list(
+  tar_target(params, list(age_threshold = 30)),
+  tar_sql(report, path = "query.sql", params = params)
+  )
 ```
 
 ![](inst/tar_visnetwork.png)
+
+With ‘Jinja’:
+
+`query.sql`
+
+``` sql
+-- !preview conn=DBI::dbConnect(RSQLite::SQLite())
+-- tar_load(payment_methods)
+select
+order_id,
+{% for payment_method in params.payment_methods %}
+sum(case when payment_method = '{{payment_method}}' then amount end) as {{payment_method}}_amount
+{% if not loop.is_last %},{% endif %}
+{% endfor %}
+from payments
+group by 1
+```
+
+`_targets.R`
+
+``` r
+library(targets)
+library(sqltargets)
+
+sqltargets_option_set("sqltargets.template_engine", "jinjar")
+
+list(
+  tar_target(payment_methods, list(payment_methods = c("bank_transfer", "credit_card", "gift_card"))),
+  tar_sql(report, path = "query.sql", params = payment_methods)
+  )
+```
+
+Note that `loop.is_last` differs from typical Jinja (`loop.last`). Refer
+to [this ‘jinjar’
+vignette](https://davidchall.github.io/jinjar/articles/template-syntax.html)
+for other syntactical differences.
 
 ## Code of Conduct
 

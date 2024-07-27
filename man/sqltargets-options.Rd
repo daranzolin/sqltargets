@@ -21,12 +21,23 @@ No return value, called for side effects
 Get or Set sqltargets Options
 }
 \details{
-## Available Options
+Available Options
+
+ - `"sqltargets.template_engine"` - Either 'glue' or 'jinjar'. Determines how the query file should be parsed`.
+
+ - `"sqltargets.glue_sql_opening_delimiter"` - character. Length 1. The opening delimiter passed to `glue::glue_sql()`.
+
+ - `"sqltargets.glue_sql_closing_delimiter"` - character. Length 1. The closing delimiter passed to `glue::glue_sql()`.
 
  - `"sqltargets.jinja_block_open"` - character. Length 1. The opening delimiter passed to `jinjar::jinjar_config()`.
+
  - `"sqltargets.jinja_block_close"` - character. Length 1. The closing delimiter passed to `jinjar::jinjar_config()`.
+
  - `"sqltargets.jinja_variable_open"` - character. Length 1. The closing delimiter passed to `jinjar::jinjar_config()`.
+
  - `"sqltargets.jinja_variable_close"` - character. Length 1. The closing delimiter passed to `jinjar::jinjar_config()`.
+
  - `"sqltargets.jinja_comment_open"` - character. Length 1. The closing delimiter passed to `jinjar::jinjar_config()`.
+
  - `"sqltargets.jinja_comment_close"` - character. Length 1. The closing delimiter passed to `jinjar::jinjar_config()`.
 }
