@@ -1,9 +1,10 @@
-# sqltargets (dev)
+# sqltargets 0.2.0
 
-* Included 'jinjar' as a dependency, allowing jinja-like SQL queries
+* Included 'jinjar' as a dependency, allowing jinja-like SQL queries.
+* New option `sqltargets.template_engine` (either 'glue' or 'jinjar').
 * Breaking change: `query_params` argument in `tar_sql()` is now `params`.
 * Additional tests
-* `params` object name now recognized as a dependency.
+* `params` object name now recognized as an upstream dependency.
 
 # sqltargets 0.1.0
 

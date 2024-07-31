@@ -23,7 +23,7 @@ Get or Set sqltargets Options
 \details{
 Available Options
 
- - `"sqltargets.template_engine"` - Either 'glue' or 'jinjar'. Determines how the query file should be parsed`.
+ - `"sqltargets.template_engine"` - Either 'glue' or 'jinjar'. Determines how the query file should be parsed.
 
  - `"sqltargets.glue_sql_opening_delimiter"` - character. Length 1. The opening delimiter passed to `glue::glue_sql()`.
 
