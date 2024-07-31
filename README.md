@@ -95,8 +95,6 @@ list(
   )
 ```
 
-![](inst/tar_visnetwork.png)
-
 With ‘Jinja’:
 
 `query.sql`
@@ -132,6 +130,8 @@ Note that `loop.is_last` differs from typical Jinja (`loop.last`). Refer
 to [this ‘jinjar’
 vignette](https://davidchall.github.io/jinjar/articles/template-syntax.html)
 for other syntactical differences.
+
+![](inst/tar_glimpse.png)
 
 ## Code of Conduct
 
