@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-sqltargets makes it easy to integrate SQL files within your [targets workflows.](https://github.com/ropensci/targets) The shorthand `tar_sql()` creates two targets: (1) the ‘upstream’ SQL file; and (2) the ‘downstream’ result of the query. Dependencies can be specified by calling `tar_load()` within SQL comments. Parameters can be specified using glue::glue_sql() bracket notation (‘{}’) (or configured using the `sqltargets.glue_sql_opening_delimiter` and `sqltargets.glue_sql_closing_delimiter` options.
+sqltargets makes it easy to integrate SQL files within your [targets workflows.](https://github.com/ropensci/targets) The shorthand `tar_sql()` creates two targets: (1) the ‘upstream’ SQL file; and (2) the ‘downstream’ result of the query. Dependencies can be specified by calling `tar_load()` within SQL comments. The template engine can be specified using the `sqltargets.template_engine` option (either 'glue' or 'jinjar').
 
 ## Installation
 
