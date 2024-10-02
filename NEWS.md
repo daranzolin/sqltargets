@@ -1,3 +1,7 @@
+# sqltargets 0.2.1
+
+* Uses glue::glue_data_sql instead of glue::glue_sql to avoid passing a list as .envir via @jennybc.
+
 # sqltargets 0.2.0
 
 * Included 'jinjar' as a dependency, allowing jinja-like SQL queries.
