@@ -1,3 +1,13 @@
+# sqltargets 0.3.0
+
+* Include `tar_read()` support as well as `tar_load()` when parsing deps in sql files by @kiwiroy in https://github.com/daranzolin/sqltargets/pull/25
+* Add support for `DBI::dbBind()` placeholder parameters by @kiwiroy in https://github.com/daranzolin/sqltargets/pull/24
+
+## New Contributors
+* @kiwiroy made their first contribution in https://github.com/daranzolin/sqltargets/pull/25
+
+**Full Changelog**: https://github.com/daranzolin/sqltargets/compare/v0.2.1...v0.3.0
+
 # sqltargets 0.2.1
 
 * Uses glue::glue_data_sql instead of glue::glue_sql to avoid passing a list as .envir via @jennybc.
