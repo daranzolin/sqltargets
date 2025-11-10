@@ -117,7 +117,7 @@ targets::tar_test("tar_sql() for Jinja for loop", {
 })
 
 targets::tar_test("tar_sql() with positional dbBind DBI engine", {
-  db_file <- tempfile(pattern = "sqlite", fileext = ".db")
+  db_file <- normalizePath(tempfile(pattern = "sqlite", fileext = ".db"), winslash = "/", mustWork = FALSE)
   lines <- c(
     glue::glue("-- !preview conn=DBI::dbConnect(RSQLite::SQLite(), dbname = \"{db_file}\")"),
     "-- tar_load(create_iris_table)",
@@ -149,7 +149,7 @@ targets::tar_test("tar_sql() with positional dbBind DBI engine", {
 })
 
 targets::tar_test("tar_sql() with named dbBind DBI engine", {
-  db_file <- tempfile(pattern = "sqlite", fileext = ".db")
+  db_file <- normalizePath(tempfile(pattern = "sqlite", fileext = ".db"), winslash = "/", mustWork = FALSE)
   lines <- c(
     glue::glue("-- !preview conn=DBI::dbConnect(RSQLite::SQLite(), dbname = \"{db_file}\")"),
     "-- tar_load(create_iris_table)",
@@ -195,7 +195,7 @@ targets::tar_test("tar_sql() with named dbBind DBI engine", {
 })
 
 targets::tar_test("tar_sql() with indexed dbBind DBI engine", {
-  db_file <- tempfile(pattern = "sqlite", fileext = ".db")
+  db_file <- normalizePath(tempfile(pattern = "sqlite", fileext = ".db"), winslash = "/", mustWork = FALSE)
   lines <- c(
     glue::glue("-- !preview conn=DBI::dbConnect(RSQLite::SQLite(), dbname = \"{db_file}\")"),
     "-- tar_load(create_iris_table)",
