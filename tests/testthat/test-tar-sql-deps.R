@@ -3,6 +3,7 @@ targets::tar_test("tar_sql_deps() works", {
     "-- !preview conn=DBI::dbConnect(RSQLite::SQLite())",
     "-- tar_load(data1)",
     "-- tar_load(data2)",
+    "-- tar_read(data3)",
     "select 1 as my_col",
     ""
   )
@@ -17,5 +18,5 @@ targets::tar_test("tar_sql_deps() works", {
   })
   suppressMessages(targets::tar_make(callr_function = NULL))
   out <- tar_sql_deps("query.sql")
-  expect_equal(out, c("data1", "data2"))
+  expect_equal(out, c("data1", "data2", "data3"))
 })
