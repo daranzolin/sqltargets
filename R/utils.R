@@ -30,7 +30,7 @@ sql_deps <- function(path) {
 sql_expr <- function(path) {
   tryCatch( {
     text <- sql_lines(path)
-    text <- text[grepl("tar_load", text)]
+    text <- text[grepl("tar_(load|read)", text)]
     parse(text = text)
   },
     error = function(e) {
