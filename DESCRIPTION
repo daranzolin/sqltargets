@@ -1,7 +1,7 @@
 Package: sqltargets
 Type: Package
 Title: 'Targets' Extension for 'SQL' Queries
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: c(
       person("David", "Ranzolin", email = "daranzolin@gmail.com", role=c("aut", "cre", "cph")),
       person("Roy", "Storey", email = "kiwiroy@protonmail.com", role=c("ctb"), comment=c(ORCID="0000-0003-1375-7136"))
