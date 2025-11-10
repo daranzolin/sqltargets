@@ -115,3 +115,113 @@ targets::tar_test("tar_sql() for Jinja for loop", {
                                credit_card_amount = 0,
                                gift_card_amount = 0))
 })
+
+targets::tar_test("tar_sql() with positional dbBind DBI engine", {
+  db_file <- normalizePath(tempfile(pattern = "sqlite", fileext = ".db"), winslash = "/", mustWork = FALSE)
+  lines <- c(
+    glue::glue("-- !preview conn=DBI::dbConnect(RSQLite::SQLite(), dbname = \"{db_file}\")"),
+    "-- tar_load(create_iris_table)",
+    "select distinct(species) as wide_petals from iris where [Petal.Width] > ?",
+    ""
+  )
+  writeLines(lines, "query.sql")
+  targets::tar_script({
+    library(sqltargets)
+    sqltargets_option_set("sqltargets.template_engine", "dbi")
+    list(
+      tar_target(test_db_file, db_file),
+      tar_target(create_iris_table, {
+        conn <- DBI::dbConnect(RSQLite::SQLite(), dbname = test_db_file)
+        on.exit(DBI::dbDisconnect(conn), after = TRUE)
+        DBI::dbWriteTable(conn, 'iris', iris)
+        TRUE
+      }),
+      tar_sql(
+        report,
+        path = "query.sql",
+        params = list(2.3)
+      )
+    )
+  })
+  suppressMessages(targets::tar_make(callr_function = NULL))
+  out <- targets::tar_read(report)
+  expect_equal(out, data.frame(wide_petals = "virginica"))
+})
+
+targets::tar_test("tar_sql() with named dbBind DBI engine", {
+  db_file <- normalizePath(tempfile(pattern = "sqlite", fileext = ".db"), winslash = "/", mustWork = FALSE)
+  lines <- c(
+    glue::glue("-- !preview conn=DBI::dbConnect(RSQLite::SQLite(), dbname = \"{db_file}\")"),
+    "-- tar_load(create_iris_table)",
+    "select distinct(species) as short_petals from iris where [Petal.Length] < $petal_length",
+    ""
+  )
+  writeLines(lines, "named_ph_dollar.sql")
+  lines <- c(
+    glue::glue("-- !preview conn=DBI::dbConnect(RSQLite::SQLite(), dbname = \"{db_file}\")"),
+    "-- tar_load(create_iris_table)",
+    "select distinct(species) as short_petals from iris where [Petal.Length] < :petal_length",
+    ""
+  )
+  writeLines(lines, "named_ph_colon.sql")
+  targets::tar_script({
+    library(sqltargets)
+    sqltargets_option_set("sqltargets.template_engine", "dbi")
+    list(
+      tar_target(test_db_file, db_file),
+      tar_target(create_iris_table, {
+        conn <- DBI::dbConnect(RSQLite::SQLite(), dbname = test_db_file)
+        on.exit(DBI::dbDisconnect(conn), after = TRUE)
+        DBI::dbWriteTable(conn, 'iris', iris)
+        TRUE
+      }),
+      tar_sql(
+        report,
+        path = "named_ph_dollar.sql",
+        params = list(petal_length=1.5)
+      ),
+      tar_sql(
+        report2,
+        path = "named_ph_colon.sql",
+        params = data.frame(petal_length=1.5)
+      )
+    )
+  })
+  suppressMessages(targets::tar_make(callr_function = NULL))
+  out <- targets::tar_read(report)
+  expect_equal(out, data.frame(short_petals = "setosa"))
+  out2 <- targets::tar_read(report2)
+  expect_equal(out2, data.frame(short_petals = "setosa"))
+})
+
+targets::tar_test("tar_sql() with indexed dbBind DBI engine", {
+  db_file <- normalizePath(tempfile(pattern = "sqlite", fileext = ".db"), winslash = "/", mustWork = FALSE)
+  lines <- c(
+    glue::glue("-- !preview conn=DBI::dbConnect(RSQLite::SQLite(), dbname = \"{db_file}\")"),
+    "-- tar_load(create_iris_table)",
+    "select species from iris where [Sepal.Length] > $1 and [Petal.Width] < $2 and [Sepal.Width] < $1",
+    ""
+  )
+  writeLines(lines, "query.sql")
+  targets::tar_script({
+    library(sqltargets)
+    sqltargets_option_set("sqltargets.template_engine", "dbi")
+    list(
+      tar_target(test_db_file, db_file),
+      tar_target(create_iris_table, {
+        conn <- DBI::dbConnect(RSQLite::SQLite(), dbname = test_db_file)
+        on.exit(DBI::dbDisconnect(conn), after = TRUE)
+        DBI::dbWriteTable(conn, 'iris', iris)
+        TRUE
+      }),
+      tar_sql(
+        report,
+        path = "query.sql",
+        params = list(5.0, 1.0)
+      )
+    )
+  })
+  suppressMessages(targets::tar_make(callr_function = NULL))
+  out <- targets::tar_read(report)
+  expect_equal(out, data.frame(Species = rep("setosa", 22)))
+})

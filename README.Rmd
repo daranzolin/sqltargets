@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-sqltargets makes it easy to integrate SQL files within your [targets workflows.](https://github.com/ropensci/targets) The shorthand `tar_sql()` creates two targets: (1) the ‘upstream’ SQL file; and (2) the ‘downstream’ result of the query. Dependencies can be specified by calling `tar_load()` within SQL comments. The template engine can be specified using the `sqltargets.template_engine` option (either 'glue' or 'jinjar').
+sqltargets makes it easy to integrate SQL files within your [targets workflows.](https://github.com/ropensci/targets) The shorthand `tar_sql()` creates two targets: (1) the ‘upstream’ SQL file; and (2) the ‘downstream’ result of the query. Dependencies can be specified by calling `tar_load()` within SQL comments. The template engine can be specified using the `sqltargets.template_engine` option (either 'dbi', 'glue' or 'jinjar'). 'glue' is the default, 'dbi' is the simplest using [placeholders](https://dbi.r-dbi.org/reference/dbBind.html#details), and 'jinjar' is the most powerful.
 
 ## Installation
 
@@ -80,6 +80,30 @@ With glue:
 select id
 from table
 where age > {age_threshold}
+```
+
+`_targets.R`
+
+```{r eval = FALSE}
+library(targets)
+library(sqltargets)
+list(
+  tar_target(params, list(age_threshold = 30)),
+  tar_sql(report, path = "query.sql", params = params)
+  )
+```
+
+With dbi:
+
+`query.sql`
+
+```sql
+-- !preview conn=DBI::dbConnect(RSQLite::SQLite())
+-- tar_load(params)
+select id
+from table
+where age > :age_threshold
+-- this could be $1, $age_threshold, or ? for SQLite
 ```
 
 `_targets.R`
