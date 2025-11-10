@@ -19,7 +19,7 @@ source_sql_to_dataframe <- function(path, params = NULL) {
         comment_close = sqltargets_option_get("sqltargets.jinja_comment_close"),
       )
     )
-  } else {
+  } else if (template_engine == "glue") {
     query <- glue::glue_data_sql(
       params,
       query,
@@ -28,7 +28,17 @@ source_sql_to_dataframe <- function(path, params = NULL) {
       .close = sqltargets_option_get("sqltargets.glue_sql_closing_delimiter")
     )
   }
-  out <- DBI::dbGetQuery(con, query)
+
+  if (template_engine %in% c("jinjar", "glue")) {
+    out <- DBI::dbGetQuery(con, query)
+  } else if (template_engine == "dbi") {
+    sth <- DBI::dbSendQuery(con, query)
+    DBI::dbBind(sth, params)
+    out <- DBI::dbFetch(sth, n = -1)
+    DBI::dbClearResult(sth)
+  } else {
+    stop(glue::glue("Unknown template engine: {template_engine}"))
+  }
   msg <- glue::glue("{basename(path)} executed:\n Rows: {nrow(out)}\n Columns: {ncol(out)}")
   cli::cli_alert_success(msg)
   return(out)
