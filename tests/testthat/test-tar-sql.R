@@ -194,6 +194,37 @@ targets::tar_test("tar_sql() with named dbBind DBI engine", {
   expect_equal(out2, data.frame(short_petals = "setosa"))
 })
 
+targets::tar_test("tar_sql() with dbBind DBI engine empty params", {
+  db_file <- normalizePath(tempfile(pattern = "sqlite", fileext = ".db"), winslash = "/", mustWork = FALSE)
+  lines <- c(
+    glue::glue("-- !preview conn=DBI::dbConnect(RSQLite::SQLite(), dbname = \"{db_file}\")"),
+    "-- tar_load(create_iris_table)",
+    "select count(*) as row_count from iris"
+  )
+  writeLines(lines, "count_query.sql")
+  targets::tar_script({
+    library(sqltargets)
+    sqltargets_option_set("sqltargets.template_engine", "dbi")
+    list(
+      tar_target(test_db_file, db_file),
+      tar_target(create_iris_table, {
+        conn <- DBI::dbConnect(RSQLite::SQLite(), dbname = test_db_file)
+        on.exit(DBI::dbDisconnect(conn), after = TRUE)
+        DBI::dbWriteTable(conn, 'iris', iris)
+        TRUE
+      }),
+      tar_sql(
+        report,
+        path = "count_query.sql",
+        params = list()
+      )
+    )
+  })
+  suppressMessages(targets::tar_make(callr_function = NULL))
+  out <- targets::tar_read(report)
+  expect_equal(out, data.frame(row_count = 150))
+})
+
 targets::tar_test("tar_sql() with indexed dbBind DBI engine", {
   db_file <- normalizePath(tempfile(pattern = "sqlite", fileext = ".db"), winslash = "/", mustWork = FALSE)
   lines <- c(

@@ -33,7 +33,8 @@ source_sql_to_dataframe <- function(path, params = NULL) {
     out <- DBI::dbGetQuery(con, query)
   } else if (template_engine == "dbi") {
     sth <- DBI::dbSendQuery(con, query)
-    DBI::dbBind(sth, params)
+    # Avoid Query does not require parameters.
+    if(!rlang::is_empty(params)) { DBI::dbBind(sth, params) }
     out <- DBI::dbFetch(sth, n = -1)
     DBI::dbClearResult(sth)
   } else {
