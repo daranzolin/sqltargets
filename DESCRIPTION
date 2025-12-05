@@ -26,10 +26,14 @@ Imports:
     tarchetypes,
     targets,
     withr
-URL: https://github.com/daranzolin/sqltargets
+URL: https://github.com/daranzolin/sqltargets,
+    https://daranzolin.github.io/sqltargets/
 BugReports: https://github.com/daranzolin/sqltargets/issues
 RoxygenNote: 7.2.1
 Suggests: 
     testthat (>= 3.0.0),
-    RSQLite (>= 2.2.0)
+    RSQLite (>= 2.2.0),
+    knitr,
+    rmarkdown
 Config/testthat/edition: 3
+VignetteBuilder: knitr
